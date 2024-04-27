@@ -5,6 +5,7 @@ export class UpdateTodo extends CreateTodo {
   @IsOptional()
   title: string;
 
+  @IsOptional()
   @IsBoolean()
   completed: boolean;
 }

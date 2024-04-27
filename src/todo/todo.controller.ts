@@ -6,7 +6,6 @@ import {
   Param,
   Patch,
   Post,
-  Request,
 } from '@nestjs/common';
 import { Todo } from '@prisma/client';
 import { CreateTodo } from './dtos/todo.dto';
@@ -18,8 +17,7 @@ export class TodoController {
   constructor(private todoService: TodoService) {}
 
   @Get()
-  getAllTodo(@Request() req): Promise<Todo[]> {
-    console.log('req.id', req.userId);
+  getAllTodo(): Promise<Todo[]> {
     return this.todoService.getAllTodo();
   }
 

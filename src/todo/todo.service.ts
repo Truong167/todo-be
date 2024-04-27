@@ -3,6 +3,7 @@ import {
   Injectable,
   Logger,
   NotFoundException,
+  UnprocessableEntityException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateTodo } from './dtos/todo.dto';
@@ -10,7 +11,7 @@ import { UpdateTodo } from './dtos/updateTodo.dto';
 
 @Injectable()
 export class TodoService {
-  logger = new Logger(TodoService.name);
+  private logger = new Logger(TodoService.name);
   constructor(private primaService: PrismaService) {}
 
   async getAllTodo() {
@@ -41,7 +42,7 @@ export class TodoService {
 
       return res.id;
     } catch (error) {
-      this.logger.log(error.message);
+      this.logger.log(error);
       throw new ConflictException();
     }
   }
@@ -59,25 +60,23 @@ export class TodoService {
 
       return updateTodo.id;
     } catch (error) {
-      if (error.code === 'P2025') {
-        this.logger.log(error.meta.cause);
-      } else {
-        throw new ConflictException();
-      }
+      this.logger.log(error);
+      throw new UnprocessableEntityException();
     }
   }
 
   async deleteTodo(id: string) {
     try {
-      await this.primaService.todo.delete({
+      const res = await this.primaService.todo.delete({
         where: {
           id,
         },
       });
 
-      return { message: 'Delete Successfully' };
+      return res.id;
     } catch (error) {
-      this.logger.log(error.meta.cause);
+      this.logger.log(error);
+      throw new UnprocessableEntityException();
     }
   }
 }
