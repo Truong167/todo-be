@@ -106,4 +106,33 @@ describe('TodoController', () => {
       expect(result).toEqual(todoId);
     });
   });
+
+  describe('update todo', () => {
+    it('should throw error if todo not found', async () => {
+      const todoId = '1';
+      const updateTodo = {
+        title: 'Learn Nest',
+        completed: false,
+      };
+      jest
+        .spyOn(todoService, 'updateTodo')
+        .mockRejectedValue(new NotFoundException());
+
+      await expect(
+        todoController.updateTodo(todoId, updateTodo),
+      ).rejects.toThrow(NotFoundException);
+    });
+
+    it('should update todo successfully', async () => {
+      const todoId = '1';
+      const updateTodo = {
+        title: 'Learn Nest',
+        completed: false,
+      };
+      jest.spyOn(todoService, 'updateTodo').mockResolvedValue(todoId);
+      const result = await todoController.updateTodo(todoId, updateTodo);
+      expect(todoService.updateTodo).toHaveBeenCalledWith(todoId, updateTodo);
+      expect(result).toEqual(todoId);
+    });
+  });
 });
