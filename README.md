@@ -72,4 +72,4 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](LICENSE).
 
-curl -i -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkMGQxMDdjOC1hYzEzLTRkNTEtOTVkYS00YmNjYTE3YTIyNjAiLCJpYXQiOjE3MTQxODM3Mjl9.LonsozwldPCSZSXwOGMxlZDG87TC0NTw-WbZi3txT5E" -X GET localhost:8000/api/v1/todos
+curl -i -X GET localhost:8000/api/v1/todos

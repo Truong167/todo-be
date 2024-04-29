@@ -18,6 +18,8 @@ describe('TodoController', () => {
             getTodo: jest.fn(),
             getAllTodo: jest.fn(),
             createTodo: jest.fn(),
+            deleteTodo: jest.fn(),
+            updateTodo: jest.fn(),
           },
         },
       ],
@@ -132,6 +134,26 @@ describe('TodoController', () => {
       jest.spyOn(todoService, 'updateTodo').mockResolvedValue(todoId);
       const result = await todoController.updateTodo(todoId, updateTodo);
       expect(todoService.updateTodo).toHaveBeenCalledWith(todoId, updateTodo);
+      expect(result).toEqual(todoId);
+    });
+  });
+  describe('delete todo', () => {
+    it('should throw error if todo not found', async () => {
+      const todoId = '1';
+      jest
+        .spyOn(todoService, 'deleteTodo')
+        .mockRejectedValue(new NotFoundException());
+
+      await expect(todoController.deleteTodo(todoId)).rejects.toThrow(
+        NotFoundException,
+      );
+    });
+
+    it('should delete todo successfully', async () => {
+      const todoId = '1';
+      jest.spyOn(todoService, 'deleteTodo').mockResolvedValue(todoId);
+      const result = await todoController.deleteTodo(todoId);
+      expect(todoService.deleteTodo).toHaveBeenCalledWith(todoId);
       expect(result).toEqual(todoId);
     });
   });
