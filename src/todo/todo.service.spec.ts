@@ -10,23 +10,12 @@ import { PrismaService } from '../prisma.service';
 import { TodoService } from './todo.service';
 import { UpdateTodo } from './dtos/updateTodo.dto';
 
-// jest.mock('@nestjs/common', () => ({
-//   ...jest.requireActual('@nestjs/common'),
-//   Logger: jest.fn().mockImplementation(() => ({
-//     log: jest.fn(),
-//   })),
-// }));
-
 describe('TodoService', () => {
   const mockLogger: jest.Mocked<Logger> = {
     log: jest.fn(),
   } as any;
   let service: TodoService;
   let prismaService: PrismaService;
-
-  // mockLogger = {
-  //   log: jest.fn(),
-  // } as any;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({

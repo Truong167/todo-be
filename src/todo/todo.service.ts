@@ -49,6 +49,7 @@ export class TodoService {
 
   async updateTodo(id: string, todo: UpdateTodo) {
     try {
+      console.log(todo);
       const updateTodo = await this.primaService.todo.update({
         where: {
           id: id,
