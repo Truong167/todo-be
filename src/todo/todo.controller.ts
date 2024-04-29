@@ -17,22 +17,25 @@ export class TodoController {
   constructor(private todoService: TodoService) {}
 
   @Get()
-  getAllTodo(): Promise<Todo[]> {
+  async getAllTodo(): Promise<Todo[]> {
     return this.todoService.getAllTodo();
   }
 
   @Get('/:id')
-  getTodo(@Param('id') id: string) {
+  async getTodo(@Param('id') id: string): Promise<Todo> {
     return this.todoService.getTodo(id);
   }
 
   @Post()
-  createTodo(@Body() body: CreateTodo) {
+  async createTodo(@Body() body: CreateTodo): Promise<string> {
     return this.todoService.createTodo(body);
   }
 
   @Patch('/:id')
-  updateTodo(@Param('id') id: string, @Body() body: UpdateTodo) {
+  async updateTodo(
+    @Param('id') id: string,
+    @Body() body: UpdateTodo,
+  ): Promise<string> {
     return this.todoService.updateTodo(id, body);
   }
 
