@@ -35,6 +35,12 @@ $ pnpm install
 ## Running the app
 
 ```bash
+# migrate database
+$ pnpm migrate:dev
+
+# run docker 
+$ docker compose up
+
 # development
 $ pnpm run start
 
@@ -58,16 +64,22 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
-## Support
+## API end point
+[Get all to do](localhost:8000/api/v1/todos)
+[Get todo by id](localhost:8000/api/v1/todos/:id)
+[Create todo](localhost:8000/api/v1/todos)
+[Update todo](localhost:8000/api/v1/todos/:id)
+[Delete todo](localhost:8000/api/v1/todos/:id)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# Curl
+Get all todo: curl -i -X GET localhost:8000/api/v1/todos
 
-## Stay in touch
+Get todo by id: curl -i -X GET localhost:8000/api/v1/todos/3e8621a2-adfa-4e71-83e5-494c72516726
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Create todo: curl --data "title=Learn ReactJs" localhost:8000/api/v1/todos/
 
-## License
+Update todo: curl -X PATCH -H "Content-Type: application/json" --data "{\"title\": \"Learn Database\", \"completed\": true}" http://localhost:8000/api/v1/todos/:id
 
-Nest is [MIT licensed](LICENSE).
+Delete todo: curl -X DELETE http://localhost:8000/api/v1/todos/:id
+
+* note: pass :id is id for each record in your database
